@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Search</title>
+    <style>
+        /* Ховаємо все зайве, залишаємо тільки результати */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
+        #search-status { padding: 10px; color: #666; font-size: 14px; text-align: center;}
+        
+        /* Стилізація блоку результатів, щоб він виглядав гарно на мобільному */
+        .gsc-control-cse { padding: 0 !important; border: none !important; }
+    </style>
+</head>
+<body>
+
+    <div id="search-status">Завантаження пошуку...</div>
+
+    <div id="gcs-results">
+        <div class="gcse-searchresults-only" data-gname="myAppSearch"></div>
+    </div>
+
+    <script>
+        // 1. Функція, яка запускається, коли Google завантажився
+        const myOnLoadCallback = function() {
+            if (document.readyState == 'complete') {
+                initSearch();
+            } else {
+                google.setOnLoadCallback(initSearch, true);
+            }
+        };
+
+        // 2. Головна логіка
+        function initSearch() {
+            // Читаємо параметри з URL (те, що передав додаток)
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');       // Запит (напр. "air jordan")
+            const sites = urlParams.get('sites');   // Сайти (напр. "ebay.com,kleinanzeigen.de")
+
+            const statusDiv = document.getElementById('search-status');
+
+            if (!query) {
+                statusDiv.innerText = "Очікування команди від додатка...";
+                return;
+            }
+
+            // Формуємо складний запит для Google
+            let finalQuery = query;
+
+            if (sites) {
+                // Розбиваємо список сайтів по комі і робимо "OR"
+                const siteList = sites.split(',');
+                const siteOperators = siteList.map(s => `site:${s.trim()}`).join(' OR ');
+                finalQuery += ` (${siteOperators})`;
+            }
+
+            statusDiv.style.display = 'none'; // Ховаємо статус
+            
+            console.log("Executing:", finalQuery);
+
+            // Запускаємо пошук
+            const element = google.search.cse.element.getElement('myAppSearch');
+            if (element) {
+                element.execute(finalQuery);
+            }
+        }
+    </script>
+
+    <script src="https://cse.google.com/cse.js?cx=1344d65dca9264bd9" async defer onload="myOnLoadCallback()"></script>
+
+</body>
+</html>
