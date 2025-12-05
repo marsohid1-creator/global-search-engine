@@ -1,5 +1,5 @@
 {
-	"search_base_url": "https://raw.githubusercontent.com/marsohid1-creator/global-search-engine/refs/heads/main/index.html",
+	"search_base_url": "https://marsohid1-creator.github.io/global-search-engine/index.html",
 	"categories": [
 		{
 			"id": "sneakers",
@@ -68,3 +68,4 @@
 	]
 
 }
+
