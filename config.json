@@ -1,71 +1,30 @@
 {
-	"search_base_url": "https://marsohid1-creator.github.io/global-search-engine/index.html",
-	"categories": [
-		{
-			"id": "sneakers",
-			"name": "👟 Sneakers / Streetwear",
-			"append_keywords": "jordan yeezy nike"
-		},
-		{
-			"id": "electronics",
-			"name": "📸 Electronics / Camera",
-			"append_keywords": ""
-		},
-		{
-			"id": "vinyl",
-			"name": "🎵 Vinyl / Music",
-			"append_keywords": "vinyl record"
-		}
-	],
-	"countries": [
-		{
-			"code": "us",
-			"name": "🇺🇸 USA",
-			"sites": [
-				"ebay.com",
-				"poshmark.com",
-				"mercari.com",
-				"offerup.com"
-			]
-		},
-		{
-			"code": "de",
-			"name": "🇩🇪 Germany",
-			"sites": [
-				"kleinanzeigen.de",
-				"ebay.de",
-				"quoka.de"
-			]
-		},
-		{
-			"code": "fr",
-			"name": "🇫🇷 France",
-			"sites": [
-				"leboncoin.fr",
-				"vinted.fr",
-				"ebay.fr"
-			]
-		},
-		{
-			"code": "jp",
-			"name": "🇯🇵 Japan",
-			"sites": [
-				"jp.mercari.com",
-				"auctions.yahoo.co.jp",
-				"rakuma.rakuten.co.jp"
-			]
-		},
-		{
-			"code": "ua",
-			"name": "🇺🇦 Ukraine",
-			"sites": [
-				"olx.ua",
-				"prom.ua",
-				"izi.ua",
-				"rozetka.com.ua"
-			]
-		}
-	]
-
+  "search_base_url": "https://github.com/marsohid1-creator/global-search-engine/index.html",
+  "countries": [
+    {
+      "code": "us",
+      "name": "🇺🇸 USA",
+      "sites": ["ebay.com", "poshmark.com", "mercari.com", "offerup.com"]
+    },
+    {
+      "code": "de",
+      "name": "🇩🇪 Germany",
+      "sites": ["kleinanzeigen.de", "ebay.de", "quoka.de"]
+    },
+    {
+      "code": "fr",
+      "name": "🇫🇷 France",
+      "sites": ["leboncoin.fr", "vinted.fr", "ebay.fr"]
+    },
+    {
+      "code": "jp",
+      "name": "🇯🇵 Japan",
+      "sites": ["jp.mercari.com", "auctions.yahoo.co.jp", "rakuma.rakuten.co.jp"]
+    },
+    {
+      "code": "ua",
+      "name": "🇺🇦 Ukraine",
+      "sites": ["olx.ua", "prom.ua", "izi.ua", "rozetka.com.ua"]
+    }
+  ]
 }
-
