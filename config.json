@@ -1,5 +1,5 @@
 {
-  "search_base_url": "https://github.com/marsohid1-creator/global-search-engine/index.html",
+  "search_base_url": "https://marsohid1-creator.github.io/global-search-engine/index.html",
   "countries": [
     {
       "code": "us",
@@ -28,3 +28,4 @@
     }
   ]
 }
+
