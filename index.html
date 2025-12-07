@@ -3,71 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Search</title>
+    <title>Global Search Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
     <style>
-        /* Ховаємо все зайве, залишаємо тільки результати */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
-        #search-status { padding: 10px; color: #666; font-size: 14px; text-align: center;}
-        
-        /* Стилізація блоку результатів, щоб він виглядав гарно на мобільному */
-        .gsc-control-cse { padding: 0 !important; border: none !important; }
+        /* Custom adjustments for Google CSE styles to blend with Tailwind */
+        .gsc-control-cse {
+            padding: 0 !important;
+            border: none !important;
+            background-color: transparent !important;
+        }
+        .gsc-search-button-v2 {
+            display: none !important; 
+        }
+        .gsc-input-box {
+            border: 1px solid #e5e7eb !important;
+            border-radius: 0.5rem !important;
+            padding: 4px !important;
+        }
+        form.gsc-search-box {
+            margin-bottom: 0 !important;
+        }
+        /* Hide the default search box since we use our own UI */
+        .gsc-search-box-tools {
+            display: none !important;
+        }
+        .gsc-results-wrapper-overlay {
+            z-index: 50 !important;
+        }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen font-sans text-gray-800">
 
-    <div id="search-status">Завантаження пошуку...</div>
+    <!-- Header / Search Area -->
+    <div class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-200">
+        <div class="max-w-5xl mx-auto p-4">
+            
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-2xl font-bold text-blue-600 flex items-center gap-2">
+                    <i data-lucide="globe" class="w-6 h-6"></i> Global Search
+                </h1>
+            </div>
 
-    <div id="gcs-results">
-        <div class="gcse-searchresults-only" data-gname="myAppSearch"></div>
+            <div class="flex flex-col md:flex-row gap-3">
+                <!-- Main Search Input -->
+                <div class="flex-grow relative">
+                    <input type="text" id="searchQuery" placeholder="Що шукаємо? (нап. Walter PPK)" 
+                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none shadow-sm transition"
+                        onkeydown="if(event.key === 'Enter') performSearch()">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-3 top-3.5"></i>
+                </div>
+
+                <!-- Sites Filter Input -->
+                <div class="flex-grow md:flex-grow-0 md:w-1/3 relative">
+                    <input type="text" id="sitesFilter" placeholder="Сайти (напр. ebay.fr, vinted.fr)" 
+                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none shadow-sm transition"
+                        onkeydown="if(event.key === 'Enter') performSearch()">
+                    <i data-lucide="filter" class="w-5 h-5 text-gray-400 absolute left-3 top-3.5"></i>
+                </div>
+
+                <!-- Search Button -->
+                <button onclick="performSearch()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium shadow-sm transition flex items-center justify-center gap-2">
+                    Пошук
+                </button>
+            </div>
+            
+            <!-- Active Filters Display -->
+            <div id="activeFilters" class="mt-2 text-sm text-gray-500 hidden">
+                Фільтр по сайтах: <span id="siteListDisplay" class="font-medium text-gray-700"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Area -->
+    <div class="max-w-5xl mx-auto p-4 min-h-[500px]">
+        
+        <!-- Loading State -->
+        <div id="loading" class="hidden text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-500">Завантаження результатів Google...</p>
+        </div>
+
+        <!-- Google CSE Container -->
+        <div id="cse-container" class="mt-4">
+            <div class="gcse-searchresults-only" data-gname="my-search"></div>
+        </div>
+        
+        <!-- Empty State / Help -->
+        <div id="welcomeState" class="text-center py-16">
+            <div class="bg-blue-50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="search" class="w-10 h-10 text-blue-500"></i>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Готові до пошуку</h2>
+            <p class="text-gray-600 max-w-md mx-auto">
+                Введіть запит та список сайтів (через кому), щоб шукати конкретні товари чи інформацію на обраних платформах.
+            </p>
+        </div>
     </div>
 
     <script>
-        // 1. Функція, яка запускається, коли Google завантажився
-        const myOnLoadCallback = function() {
-            if (document.readyState == 'complete') {
-                initSearch();
-            } else {
-                google.setOnLoadCallback(initSearch, true);
+        // Initialize Icons
+        lucide.createIcons();
+
+        // ==========================================
+        // НАЛАШТУВАННЯ: Вставте ваш CX ID сюди
+        // ==========================================
+        const SEARCH_ENGINE_ID = '1344d65dca9264bd9'; 
+        // ==========================================
+
+        // Load Google CSE Script dynamically
+        (function() {
+            if (!SEARCH_ENGINE_ID || SEARCH_ENGINE_ID === 'YOUR_CX_ID_HERE') {
+                console.warn('Search Engine ID not set correctly.');
+                return;
+            }
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = 'https://cse.google.com/cse.js?cx=' + SEARCH_ENGINE_ID;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+        })();
+
+        // Main Logic
+        window.onload = function() {
+            // Parse URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('search_query');
+            const sites = urlParams.get('sites');
+
+            if (query) {
+                document.getElementById('searchQuery').value = query;
+            }
+            if (sites) {
+                document.getElementById('sitesFilter').value = sites;
+            }
+
+            // If we have data, execute search automatically
+            if (query) {
+                // Wait a moment for Google Library to initialize
+                document.getElementById('welcomeState').classList.add('hidden');
+                document.getElementById('loading').classList.remove('hidden');
+                
+                // Retry mechanism to ensure CSE is loaded
+                const checkCSE = setInterval(() => {
+                    if (window.google && google.search && google.search.cse && google.search.cse.element) {
+                        clearInterval(checkCSE);
+                        executeGoogleSearch(query, sites);
+                    }
+                }, 100);
+                
+                // Safety timeout
+                setTimeout(() => clearInterval(checkCSE), 5000);
             }
         };
 
-        // 2. Головна логіка
-        function initSearch() {
-            // Читаємо параметри з URL (те, що передав додаток)
-            const urlParams = new URLSearchParams(window.location.search);
-            const query = urlParams.get('q');       // Запит (напр. "air jordan")
-            const sites = urlParams.get('sites');   // Сайти (напр. "ebay.com,kleinanzeigen.de")
+        function performSearch() {
+            const query = document.getElementById('searchQuery').value.trim();
+            const sites = document.getElementById('sitesFilter').value.trim();
 
-            const statusDiv = document.getElementById('search-status');
+            if (!query) return;
 
-            if (!query) {
-                statusDiv.innerText = "Очікування команди від додатка...";
-                return;
-            }
-
-            // Формуємо складний запит для Google
-            let finalQuery = query;
-
+            // Update URL without reloading (for sharing)
+            const url = new URL(window.location);
+            url.searchParams.set('search_query', query);
             if (sites) {
-                // Розбиваємо список сайтів по комі і робимо "OR"
-                const siteList = sites.split(',');
-                const siteOperators = siteList.map(s => `site:${s.trim()}`).join(' OR ');
-                finalQuery += ` (${siteOperators})`;
+                url.searchParams.set('sites', sites);
+            } else {
+                url.searchParams.delete('sites');
+            }
+            window.history.pushState({}, '', url);
+
+            // UI Updates
+            document.getElementById('welcomeState').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            executeGoogleSearch(query, sites);
+        }
+
+        function executeGoogleSearch(userQuery, sitesStr) {
+            // Construct the advanced query
+            let fullQuery = userQuery;
+            
+            if (sitesStr) {
+                // Split by comma, trim whitespace, and format as site:domain.com
+                const sites = sitesStr.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                
+                if (sites.length > 0) {
+                    const siteOperators = sites.map(s => `site:${s}`).join(' OR ');
+                    fullQuery = `${userQuery} (${siteOperators})`;
+                    
+                    // Update display
+                    document.getElementById('siteListDisplay').textContent = sites.join(', ');
+                    document.getElementById('activeFilters').classList.remove('hidden');
+                } else {
+                    document.getElementById('activeFilters').classList.add('hidden');
+                }
+            } else {
+                document.getElementById('activeFilters').classList.add('hidden');
             }
 
-            statusDiv.style.display = 'none'; // Ховаємо статус
-            
-            console.log("Executing:", finalQuery);
+            console.log("Executing search for:", fullQuery);
 
-            // Запускаємо пошук
-            const element = google.search.cse.element.getElement('myAppSearch');
-            if (element) {
-                element.execute(finalQuery);
+            try {
+                // Execute using Google CSE JS API
+                const element = google.search.cse.element.getElement('my-search');
+                if (element) {
+                    element.execute(fullQuery);
+                    // Hide loading after a short delay (CSE doesn't provide a clean 'done' callback easily)
+                    setTimeout(() => {
+                        document.getElementById('loading').classList.add('hidden');
+                    }, 1000);
+                } else {
+                    console.error("Google CSE element not found");
+                }
+            } catch (e) {
+                console.error("Search execution error:", e);
+                alert("Помилка виконання пошуку. Перевірте консоль або Search Engine ID.");
             }
         }
     </script>
-
-    <script src="https://cse.google.com/cse.js?cx=1344d65dca9264bd9" async defer onload="myOnLoadCallback()"></script>
-
 </body>
 </html>
