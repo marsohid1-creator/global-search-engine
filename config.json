@@ -1,31 +1,60 @@
 {
-  "search_base_url": "https://marsohid1-creator.github.io/global-search-engine/index.html",
+  "app_title": "AutoSearch Europe & USA & Korea",
+  "version": "1.1",
+  "theme_color": "#1E88E5",
   "countries": [
     {
-      "code": "us",
-      "name": "🇺🇸 USA",
-      "sites": ["ebay.com", "poshmark.com", "mercari.com", "offerup.com"]
-    },
-    {
       "code": "de",
-      "name": "🇩🇪 Germany",
-      "sites": ["kleinanzeigen.de", "ebay.de", "quoka.de"]
+      "name": "Німеччина",
+      "flag_emoji": "🇩🇪",
+      "sites": [
+        { "name": "Mobile.de", "url": "mobile.de" },
+        { "name": "AutoScout24 DE", "url": "autoscout24.de" },
+        { "name": "eBay Kleinanzeigen", "url": "kleinanzeigen.de" },
+        { "name": "Gebrauchtwagen.de", "url": "gebrauchtwagen.de" }
+      ]
     },
     {
-      "code": "fr",
-      "name": "🇫🇷 France",
-      "sites": ["leboncoin.fr", "vinted.fr", "ebay.fr"]
+      "code": "pl",
+      "name": "Польща",
+      "flag_emoji": "🇵🇱",
+      "sites": [
+        { "name": "OTOMOTO", "url": "otomoto.pl" },
+        { "name": "OLX Auto PL", "url": "olx.pl/motoryzacja" },
+        { "name": "Allegro Moto", "url": "allegro.pl/dzial/motoryzacja" },
+        { "name": "Sprzedajemy", "url": "sprzedajemy.pl/motoryzacja" }
+      ]
     },
     {
-      "code": "jp",
-      "name": "🇯🇵 Japan",
-      "sites": ["jp.mercari.com", "auctions.yahoo.co.jp", "rakuma.rakuten.co.jp"]
+      "code": "lt",
+      "name": "Литва",
+      "flag_emoji": "🇱🇹",
+      "sites": [
+        { "name": "Autoplius", "url": "autoplius.lt" },
+        { "name": "Autogidas", "url": "autogidas.lt" }
+      ]
     },
     {
-      "code": "ua",
-      "name": "🇺🇦 Ukraine",
-      "sites": ["olx.ua", "prom.ua", "izi.ua", "rozetka.com.ua"]
+      "code": "us",
+      "name": "США",
+      "flag_emoji": "🇺🇸",
+      "sites": [
+        { "name": "Copart", "url": "copart.com" },
+        { "name": "IAAI", "url": "iaai.com" },
+        { "name": "Manheim", "url": "manheim.com" },
+        { "name": "Craigslist Cars", "url": "craigslist.org" }
+      ]
+    },
+    {
+      "code": "kr",
+      "name": "Південна Корея",
+      "flag_emoji": "🇰🇷",
+      "sites": [
+        { "name": "Encar", "url": "encar.com" },
+        { "name": "BobaeDream", "url": "bobaedream.co.kr" },
+        { "name": "K Car", "url": "kcar.com" },
+        { "name": "KB ChaChaCha", "url": "kbchachacha.com" }
+      ]
     }
   ]
 }
-
