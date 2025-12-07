@@ -12,7 +12,6 @@
             background-color: #ffffff;
         }
         
-        /* Стилізація лоадера */
         #loading-state {
             display: flex;
             flex-direction: column;
@@ -20,7 +19,8 @@
             justify-content: center;
             height: 100vh;
             color: #666;
-            transition: opacity 0.5s ease;
+            text-align: center;
+            padding: 20px;
         }
         
         .spinner {
@@ -38,41 +38,36 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Прибираємо рамки та зайві відступи від гуглівського блоку */
         .gsc-control-cse {
             padding: 0 !important;
             border: none !important;
         }
         
-        /* Робимо посилання клікабельними та зручними для пальця */
         .gs-title {
             text-decoration: none !important;
             padding-top: 5px;
             padding-bottom: 2px;
         }
+        
+        /* Приховати рекламу Google, якщо це можливо стилями (не завжди спрацьовує, але варто спробувати) */
+        .gsc-adBlock { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- Лоадер, який показується поки Гугл вантажить скрипти -->
     <div id="loading-state">
         <div class="spinner"></div>
-        <div>Пошук найкращих пропозицій...</div>
+        <div id="loading-text">Пошук найкращих пропозицій...</div>
     </div>
 
     <!-- 
-      Контейнер, де з'являться результати. 
-      Атрибут data-linkTarget="_blank" змушує посилання відкриватися 
-      (зазвичай це перехоплює Flutter WebView для відкриття в браузері або новому вікні)
+      Додано data-gname="autoSearch" для точної ідентифікації елемента 
     -->
-    <div class="gcse-searchresults-only" data-linkTarget="_blank"></div>
+    <div class="gcse-searchresults-only" data-gname="autoSearch" data-linkTarget="_blank"></div>
 
     <script>
-        // Функція для отримання параметрів з URL
-        // Очікуваний формат: index.html?q=BMW&sites=mobile.de,otomoto.pl
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
-            // Декодуємо компоненти, щоб уникнути проблем зі спецсимволами
             const rawSites = params.get('sites');
             return {
                 query: params.get('q') || '',
@@ -83,31 +78,30 @@
         const params = getQueryParams();
         let finalQuery = params.query;
 
-        // Логіка формування розширеного запиту
         if (finalQuery && params.sites.length > 0) {
-            // Фільтруємо порожні елементи, якщо такі раптом потрапили
             const cleanSites = params.sites.filter(s => s.trim().length > 0);
-            
             if (cleanSites.length > 0) {
-                // Формуємо рядок (site:A OR site:B)
                 const siteOperators = cleanSites.map(site => `site:${site.trim()}`).join(' OR ');
                 finalQuery = `${finalQuery} (${siteOperators})`;
             }
         }
 
-        console.log("Original Query:", params.query);
-        console.log("Sites:", params.sites);
-        console.log("Constructed Query:", finalQuery);
+        console.log("Executing Query:", finalQuery);
 
-        // Налаштування callback для Google PSE
+        // Тайм-аут безпеки: якщо за 8 секунд нічого не сталося, прибираємо спіннер
+        setTimeout(() => {
+            const loader = document.getElementById('loading-state');
+            if (loader && loader.style.display !== 'none') {
+                loader.innerHTML = "<p>Пошук триває довше ніж зазвичай, або виникла помилка з'єднання.</p>";
+            }
+        }, 8000);
+
         window.__gcse = {
-            parsetags: 'explicit', // Ми самі ініціюємо пошук
+            parsetags: 'onload', // Змінено на 'onload' (або можна видалити рядок, це дефолт)
             initializationCallback: function() {
-                // Як тільки бібліотека завантажилась:
                 if (finalQuery) {
-                    const element = google.search.cse.element.getElement('default-element');
-                    // Запускаємо пошук
-                    google.search.cse.element.getElement('searchresults-only0').execute(finalQuery);
+                    // Використовуємо gname "autoSearch", який ми дали div-у вище
+                    google.search.cse.element.getElement('autoSearch').execute(finalQuery);
                 } else {
                     document.getElementById('loading-state').innerHTML = "Введіть запит для пошуку";
                 }
@@ -115,7 +109,12 @@
             searchCallbacks: {
                 web: {
                     ready: function() {
-                        // Коли результати отримані, приховуємо наш лоадер
+                        // Як тільки Google підготував результати (навіть якщо їх 0)
+                        const loader = document.getElementById('loading-state');
+                        if (loader) loader.style.display = 'none';
+                    },
+                    rendered: function() {
+                        // Додаткова перестраховка
                         const loader = document.getElementById('loading-state');
                         if (loader) loader.style.display = 'none';
                     }
@@ -124,7 +123,6 @@
         };
     </script>
 
-    <!-- Твій CX ID -->
     <script async src="https://cse.google.com/cse.js?cx=1344d65dca9264bd9"></script>
 
 </body>
