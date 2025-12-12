@@ -5,122 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Auto Search</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: #fff; 
         }
         
-        #loading-state {
+        #status { 
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: white;
+            z-index: 9999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            color: #666;
-            text-align: center;
-            padding: 20px;
+            color: #666; 
         }
-        
+
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #1E88E5;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .gsc-control-cse {
-            padding: 0 !important;
-            border: none !important;
+            border: 4px solid #f3f3f3; border-top: 4px solid #1E88E5;
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
         }
         
-        .gs-title {
-            text-decoration: none !important;
-            padding-top: 5px;
-            padding-bottom: 2px;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Приховати рекламу Google, якщо це можливо стилями (не завжди спрацьовує, але варто спробувати) */
+        /* Стилі для результатів, щоб вони були на весь екран */
+        .gsc-control-cse { padding: 0 !important; border: none !important; }
+        .gsc-search-button, .gsc-input-box { display: none !important; }
+        
+        /* Прибираємо рекламу Google, якщо можливо */
         .gsc-adBlock { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="loading-state">
+    <div id="status">
         <div class="spinner"></div>
-        <div id="loading-text">Пошук найкращих пропозицій...</div>
+        <div id="msg">Пошук найкращих авто...</div>
     </div>
 
-    <!-- 
-      Додано data-gname="autoSearch" для точної ідентифікації елемента 
-    -->
     <div class="gcse-searchresults-only" data-gname="autoSearch" data-linkTarget="_blank"></div>
 
     <script>
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            const rawSites = params.get('sites');
-            return {
-                query: params.get('q') || '',
-                sites: rawSites ? decodeURIComponent(rawSites).split(',') : []
-            };
+        // --- 1. Отримання параметрів ---
+        function getParams() {
+            const p = new URLSearchParams(window.location.search);
+            const q = p.get('q') || '';
+            const s = p.get('sites') ? decodeURIComponent(p.get('sites')).split(',') : [];
+            return { q, s };
         }
 
-        const params = getQueryParams();
-        let finalQuery = params.query;
+        // Функція для приховування лоадера (безпечна)
+        function hideLoader() {
+            const loader = document.getElementById('status');
+            if (loader) loader.style.display = 'none';
+        }
 
-        if (finalQuery && params.sites.length > 0) {
-            const cleanSites = params.sites.filter(s => s.trim().length > 0);
-            if (cleanSites.length > 0) {
-                const siteOperators = cleanSites.map(site => `site:${site.trim()}`).join(' OR ');
-                finalQuery = `${finalQuery} (${siteOperators})`;
+        // --- 2. Перевірка: чи пошук вже виконано? ---
+        // Якщо в URL вже є хеш від Google (#gsc.q=...), то результати вже тут.
+        if (window.location.hash && window.location.hash.includes('gsc.q=')) {
+            console.log("Results present in URL hash. Hiding loader.");
+            hideLoader();
+        }
+
+        const { q, s } = getParams();
+        let finalQuery = q;
+
+        // Формуємо (site:A OR site:B)
+        if (q && s.length > 0) {
+            const clean = s.filter(x => x && x.trim().length > 0);
+            if (clean.length > 0) {
+                const ops = clean.map(site => `site:${site.trim()}`).join(' OR ');
+                finalQuery = `${finalQuery} (${ops})`;
             }
         }
 
-        console.log("Executing Query:", finalQuery);
+        if (document.getElementById('msg')) {
+            document.getElementById('msg').innerText = "Шукаємо: " + q;
+        }
+        
+        // --- 3. Агресивний запуск ---
+        let attempts = 0;
+        const maxAttempts = 50; // 5 секунд
 
-        // Тайм-аут безпеки: якщо за 8 секунд нічого не сталося, прибираємо спіннер
-        setTimeout(() => {
-            const loader = document.getElementById('loading-state');
-            if (loader && loader.style.display !== 'none') {
-                loader.innerHTML = "<p>Пошук триває довше ніж зазвичай, або виникла помилка з'єднання.</p>";
+        const searchTimer = setInterval(() => {
+            attempts++;
+            
+            // Якщо Google вже додав хеш в URL сам - зупиняємось
+            if (window.location.hash.includes('gsc.q=')) {
+                hideLoader();
+                clearInterval(searchTimer);
+                return;
             }
-        }, 8000);
 
-        window.__gcse = {
-            parsetags: 'onload', // Змінено на 'onload' (або можна видалити рядок, це дефолт)
-            initializationCallback: function() {
-                if (finalQuery) {
-                    // Використовуємо gname "autoSearch", який ми дали div-у вище
-                    google.search.cse.element.getElement('autoSearch').execute(finalQuery);
-                } else {
-                    document.getElementById('loading-state').innerHTML = "Введіть запит для пошуку";
-                }
-            },
-            searchCallbacks: {
-                web: {
-                    ready: function() {
-                        // Як тільки Google підготував результати (навіть якщо їх 0)
-                        const loader = document.getElementById('loading-state');
-                        if (loader) loader.style.display = 'none';
-                    },
-                    rendered: function() {
-                        // Додаткова перестраховка
-                        const loader = document.getElementById('loading-state');
-                        if (loader) loader.style.display = 'none';
+            if (typeof google !== 'undefined' && 
+                google.search && 
+                google.search.cse && 
+                google.search.cse.element) {
+                
+                try {
+                    const el = google.search.cse.element.getElement('autoSearch');
+                    if (el) {
+                        el.execute(finalQuery);
+                        clearInterval(searchTimer);
+                        // Даємо секунду на рендерінг результатів і прибираємо лоадер
+                        setTimeout(hideLoader, 1000); 
+                        return;
                     }
+                } catch (e) {
+                    console.log("Retrying...");
                 }
             }
-        };
+
+            if (attempts >= maxAttempts) {
+                clearInterval(searchTimer);
+                // Навіть якщо таймер вийшов - прибираємо лоадер, раптом результати все ж є
+                hideLoader();
+            }
+        }, 100);
+
     </script>
 
     <script async src="https://cse.google.com/cse.js?cx=1344d65dca9264bd9"></script>
