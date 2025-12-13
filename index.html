@@ -12,121 +12,60 @@
             background: #fff; 
         }
         
-        #status { 
+        /* Лоадер */
+        #loading-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: white;
-            z-index: 9999;
+            z-index: 1000;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            color: #666; 
+            align-items: center;
+            flex-direction: column;
+            color: #555;
         }
 
         .spinner {
-            border: 4px solid #f3f3f3; border-top: 4px solid #1E88E5;
+            border: 4px solid #f3f3f3; 
+            border-top: 4px solid #1E88E5;
             border-radius: 50%; width: 40px; height: 40px;
-            animation: spin 1s linear infinite; margin-bottom: 20px;
+            animation: spin 1s linear infinite; margin-bottom: 15px;
         }
         
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* Стилі для результатів, щоб вони були на весь екран */
+
+        /* Стилізація результатів */
         .gsc-control-cse { padding: 0 !important; border: none !important; }
-        .gsc-search-button, .gsc-input-box { display: none !important; }
         
-        /* Прибираємо рекламу Google, якщо можливо */
+        /* Ховаємо рядок пошуку Google, залишаємо тільки результати */
+        .gsc-search-box, .gsc-search-button { display: none !important; }
+        
+        /* Ховаємо рекламу, якщо вийде */
         .gsc-adBlock { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="status">
+    <div id="loading-overlay">
         <div class="spinner"></div>
-        <div id="msg">Пошук найкращих авто...</div>
+        <div>Завантаження результатів...</div>
     </div>
 
     <div class="gcse-searchresults-only" data-gname="autoSearch" data-linkTarget="_blank"></div>
 
     <script>
-        // --- 1. Отримання параметрів ---
-        function getParams() {
-            const p = new URLSearchParams(window.location.search);
-            const q = p.get('q') || '';
-            const s = p.get('sites') ? decodeURIComponent(p.get('sites')).split(',') : [];
-            return { q, s };
-        }
-
-        // Функція для приховування лоадера (безпечна)
-        function hideLoader() {
-            const loader = document.getElementById('status');
-            if (loader) loader.style.display = 'none';
-        }
-
-        // --- 2. Перевірка: чи пошук вже виконано? ---
-        // Якщо в URL вже є хеш від Google (#gsc.q=...), то результати вже тут.
-        if (window.location.hash && window.location.hash.includes('gsc.q=')) {
-            console.log("Results present in URL hash. Hiding loader.");
-            hideLoader();
-        }
-
-        const { q, s } = getParams();
-        let finalQuery = q;
-
-        // Формуємо (site:A OR site:B)
-        if (q && s.length > 0) {
-            const clean = s.filter(x => x && x.trim().length > 0);
-            if (clean.length > 0) {
-                const ops = clean.map(site => `site:${site.trim()}`).join(' OR ');
-                finalQuery = `${finalQuery} (${ops})`;
-            }
-        }
-
-        if (document.getElementById('msg')) {
-            document.getElementById('msg').innerText = "Шукаємо: " + q;
-        }
-        
-        // --- 3. Агресивний запуск ---
-        let attempts = 0;
-        const maxAttempts = 50; // 5 секунд
-
-        const searchTimer = setInterval(() => {
-            attempts++;
-            
-            // Якщо Google вже додав хеш в URL сам - зупиняємось
-            if (window.location.hash.includes('gsc.q=')) {
-                hideLoader();
-                clearInterval(searchTimer);
-                return;
-            }
-
-            if (typeof google !== 'undefined' && 
-                google.search && 
-                google.search.cse && 
-                google.search.cse.element) {
-                
-                try {
-                    const el = google.search.cse.element.getElement('autoSearch');
-                    if (el) {
-                        el.execute(finalQuery);
-                        clearInterval(searchTimer);
-                        // Даємо секунду на рендерінг результатів і прибираємо лоадер
-                        setTimeout(hideLoader, 1000); 
-                        return;
+        // Callback, який Google викликає сам, коли закінчує роботу
+        window.__gcse = {
+            searchCallbacks: {
+                web: {
+                    ready: function() {
+                        // Як тільки результати готові - прибираємо лоадер
+                        const loader = document.getElementById('loading-overlay');
+                        if (loader) loader.style.display = 'none';
                     }
-                } catch (e) {
-                    console.log("Retrying...");
                 }
             }
-
-            if (attempts >= maxAttempts) {
-                clearInterval(searchTimer);
-                // Навіть якщо таймер вийшов - прибираємо лоадер, раптом результати все ж є
-                hideLoader();
-            }
-        }, 100);
-
+        };
     </script>
 
     <script async src="https://cse.google.com/cse.js?cx=1344d65dca9264bd9"></script>
