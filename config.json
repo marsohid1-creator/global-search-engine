@@ -1,33 +1,63 @@
 {
-  "app_title": "AutoSearch Europe & USA & Korea",
-  "version": "1.1",
+  "app_title": "Global Auto Search",
+  "version": "2.0",
   "theme_color": "#1E88E5",
   "countries": [
     {
+      "code": "us",
+      "name": "USA",
+      "flag_emoji": "🇺🇸",
+      "sites": [
+        { "name": "Copart (Auctions)", "url": "copart.com" },
+        { "name": "IAAI (Auctions)", "url": "iaai.com" },
+        { "name": "Manheim (Whole cars)", "url": "manheim.com" },
+        { "name": "Craigslist (Private)", "url": "craigslist.org" },
+        { "name": "Autotrader", "url": "autotrader.com" }
+      ]
+    },
+    {
       "code": "de",
-      "name": "Німеччина",
+      "name": "Germany",
       "flag_emoji": "🇩🇪",
       "sites": [
         { "name": "Mobile.de", "url": "mobile.de" },
-        { "name": "AutoScout24 DE", "url": "autoscout24.de" },
-        { "name": "eBay Kleinanzeigen", "url": "kleinanzeigen.de" },
-        { "name": "Gebrauchtwagen.de", "url": "gebrauchtwagen.de" }
+        { "name": "AutoScout24", "url": "autoscout24.de" },
+        { "name": "Kleinanzeigen (eBay)", "url": "kleinanzeigen.de" }
+      ]
+    },
+    {
+      "code": "ae",
+      "name": "UAE (Dubai)",
+      "flag_emoji": "🇦🇪",
+      "sites": [
+        { "name": "Dubicars", "url": "dubicars.com" },
+        { "name": "Dubizzle", "url": "dubizzle.com" },
+        { "name": "YallaMotor", "url": "yallamotor.com" }
+      ]
+    },
+    {
+      "code": "kr",
+      "name": "South Korea",
+      "flag_emoji": "🇰🇷",
+      "sites": [
+        { "name": "Encar", "url": "encar.com" },
+        { "name": "BobaeDream", "url": "bobaedream.co.kr" },
+        { "name": "K Car", "url": "kcar.com" }
       ]
     },
     {
       "code": "pl",
-      "name": "Польща",
+      "name": "Poland",
       "flag_emoji": "🇵🇱",
       "sites": [
         { "name": "OTOMOTO", "url": "otomoto.pl" },
-        { "name": "OLX Auto PL", "url": "olx.pl/motoryzacja" },
-        { "name": "Allegro Moto", "url": "allegro.pl/dzial/motoryzacja" },
-        { "name": "Sprzedajemy", "url": "sprzedajemy.pl/motoryzacja" }
+        { "name": "OLX Auto", "url": "olx.pl/motoryzacja" },
+        { "name": "Allegro", "url": "allegro.pl/dzial/motoryzacja" }
       ]
     },
     {
       "code": "lt",
-      "name": "Литва",
+      "name": "Lithuania",
       "flag_emoji": "🇱🇹",
       "sites": [
         { "name": "Autoplius", "url": "autoplius.lt" },
@@ -35,25 +65,12 @@
       ]
     },
     {
-      "code": "us",
-      "name": "США",
-      "flag_emoji": "🇺🇸",
+      "code": "ge",
+      "name": "Georgia",
+      "flag_emoji": "🇬🇪",
       "sites": [
-        { "name": "Copart", "url": "copart.com" },
-        { "name": "IAAI", "url": "iaai.com" },
-        { "name": "Manheim", "url": "manheim.com" },
-        { "name": "Craigslist Cars", "url": "craigslist.org" }
-      ]
-    },
-    {
-      "code": "kr",
-      "name": "Південна Корея",
-      "flag_emoji": "🇰🇷",
-      "sites": [
-        { "name": "Encar", "url": "encar.com" },
-        { "name": "BobaeDream", "url": "bobaedream.co.kr" },
-        { "name": "K Car", "url": "kcar.com" },
-        { "name": "KB ChaChaCha", "url": "kbchachacha.com" }
+        { "name": "MyAuto", "url": "myauto.ge" },
+        { "name": "Autopapa", "url": "autopapa.ge" }
       ]
     }
   ]
