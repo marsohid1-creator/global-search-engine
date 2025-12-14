@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,6 @@
             background: #fff; 
         }
         
-        /* Лоадер */
         #loading-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -34,13 +33,8 @@
         
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Стилізація результатів */
         .gsc-control-cse { padding: 0 !important; border: none !important; }
-        
-        /* Ховаємо рядок пошуку Google, залишаємо тільки результати */
         .gsc-search-box, .gsc-search-button { display: none !important; }
-        
-        /* Ховаємо рекламу, якщо вийде */
         .gsc-adBlock { display: none !important; }
     </style>
 </head>
@@ -48,18 +42,17 @@
 
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <div>Завантаження результатів...</div>
+        <div>Loading results...</div>
     </div>
 
+    <!-- data-linkTarget="_self" is crucial for WebView navigation -->
     <div class="gcse-searchresults-only" data-gname="autoSearch" data-linkTarget="_self"></div>
 
     <script>
-        // Callback, який Google викликає сам, коли закінчує роботу
         window.__gcse = {
             searchCallbacks: {
                 web: {
                     ready: function() {
-                        // Як тільки результати готові - прибираємо лоадер
                         const loader = document.getElementById('loading-overlay');
                         if (loader) loader.style.display = 'none';
                     }
