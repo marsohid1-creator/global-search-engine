@@ -22,6 +22,7 @@
             align-items: center;
             flex-direction: column;
             color: #555;
+            transition: opacity 0.5s ease; /* Плавне зникнення */
         }
 
         .spinner {
@@ -49,16 +50,27 @@
     <div class="gcse-searchresults-only" data-gname="autoSearch" data-linkTarget="_self"></div>
 
     <script>
+        // Функція приховування
+        function hideLoader() {
+            const loader = document.getElementById('loading-overlay');
+            if (loader && loader.style.display !== 'none') {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
+        }
+
+        // 1. Стандартний callback від Google
         window.__gcse = {
             searchCallbacks: {
                 web: {
-                    ready: function() {
-                        const loader = document.getElementById('loading-overlay');
-                        if (loader) loader.style.display = 'none';
-                    }
+                    ready: hideLoader
                 }
             }
         };
+
+        // 2. ЗАПОБІЖНИК: Прибрати лоадер примусово через 3.5 секунди
+        // Це гарантує, що ви побачите сторінку (або капчу), навіть якщо callback не спрацює.
+        setTimeout(hideLoader, 3500);
     </script>
 
     <script async src="https://cse.google.com/cse.js?cx=1344d65dca9264bd9"></script>
