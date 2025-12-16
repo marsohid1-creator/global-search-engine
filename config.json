@@ -1,18 +1,29 @@
 {
   "app_title": "Global Auto Search",
-  "version": "2.0",
-  "theme_color": "#1E88E5",
+  "version": "3.0",
+  "theme_color": "#0b0c15",
   "countries": [
     {
       "code": "us",
       "name": "USA",
       "flag_emoji": "🇺🇸",
       "sites": [
-        { "name": "Copart (Auctions)", "url": "copart.com" },
-        { "name": "IAAI (Auctions)", "url": "iaai.com" },
-        { "name": "Manheim (Whole cars)", "url": "manheim.com" },
-        { "name": "Craigslist (Private)", "url": "craigslist.org" },
-        { "name": "Autotrader", "url": "autotrader.com" }
+        { 
+          "name": "Copart", 
+          "url_pattern": "https://www.copart.com/lotSearchResults/?free=true&query={q}" 
+        },
+        { 
+          "name": "IAAI", 
+          "url_pattern": "https://www.iaai.com/VehicleSearch/SearchDetails?Keyword={q}" 
+        },
+        { 
+          "name": "Manheim (Public)", 
+          "url_pattern": "https://www.manheim.com/search?q={q}" 
+        },
+        { 
+          "name": "Autotrader", 
+          "url_pattern": "https://www.autotrader.com/cars-for-sale/all-cars?keywords={q}" 
+        }
       ]
     },
     {
@@ -20,9 +31,14 @@
       "name": "Germany",
       "flag_emoji": "🇩🇪",
       "sites": [
-        { "name": "Mobile.de", "url": "mobile.de" },
-        { "name": "AutoScout24", "url": "autoscout24.de" },
-        { "name": "Kleinanzeigen (eBay)", "url": "kleinanzeigen.de" }
+        { 
+          "name": "Mobile.de", 
+          "url_pattern": "https://suchen.mobile.de/fahrzeuge/search.html?dam=0&isSearchRequest=true&vc=Car&s={q}" 
+        },
+        { 
+          "name": "AutoScout24", 
+          "url_pattern": "https://www.autoscout24.com/lst?atype=C&desc=0&sort=standard&ustate=N%2CU&custtype=P%2CD&powertype=kw&search_id=1&q={q}" 
+        }
       ]
     },
     {
@@ -30,9 +46,14 @@
       "name": "UAE (Dubai)",
       "flag_emoji": "🇦🇪",
       "sites": [
-        { "name": "Dubicars", "url": "dubicars.com" },
-        { "name": "Dubizzle", "url": "dubizzle.com" },
-        { "name": "YallaMotor", "url": "yallamotor.com" }
+        { 
+          "name": "Dubicars", 
+          "url_pattern": "https://www.dubicars.com/search?q={q}" 
+        },
+        { 
+          "name": "Dubizzle", 
+          "url_pattern": "https://dubai.dubizzle.com/motors/used-cars/?keywords={q}" 
+        }
       ]
     },
     {
@@ -40,9 +61,10 @@
       "name": "South Korea",
       "flag_emoji": "🇰🇷",
       "sites": [
-        { "name": "Encar", "url": "encar.com" },
-        { "name": "BobaeDream", "url": "bobaedream.co.kr" },
-        { "name": "K Car", "url": "kcar.com" }
+        { 
+          "name": "Encar", 
+          "url_pattern": "http://www.encar.com/dc/dc_carsearch.do?wtClick_kor=search_search_car&searchType=model&modelgroup=&mask=&mode=simple&range=&inav=&inav_s=&search=Y&keyword={q}" 
+        }
       ]
     },
     {
@@ -50,18 +72,14 @@
       "name": "Poland",
       "flag_emoji": "🇵🇱",
       "sites": [
-        { "name": "OTOMOTO", "url": "otomoto.pl" },
-        { "name": "OLX Auto", "url": "olx.pl/motoryzacja" },
-        { "name": "Allegro", "url": "allegro.pl/dzial/motoryzacja" }
-      ]
-    },
-    {
-      "code": "lt",
-      "name": "Lithuania",
-      "flag_emoji": "🇱🇹",
-      "sites": [
-        { "name": "Autoplius", "url": "autoplius.lt" },
-        { "name": "Autogidas", "url": "autogidas.lt" }
+        { 
+          "name": "OTOMOTO", 
+          "url_pattern": "https://www.otomoto.pl/osobowe/q-{q}" 
+        },
+        { 
+          "name": "OLX Auto", 
+          "url_pattern": "https://www.olx.pl/motoryzacja/samochody/q-{q}/" 
+        }
       ]
     },
     {
@@ -69,8 +87,10 @@
       "name": "Georgia",
       "flag_emoji": "🇬🇪",
       "sites": [
-        { "name": "MyAuto", "url": "myauto.ge" },
-        { "name": "Autopapa", "url": "autopapa.ge" }
+        { 
+          "name": "MyAuto", 
+          "url_pattern": "https://www.myauto.ge/en/s/0/0/00/00/00/00/00/00/00/00/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0?Keyword={q}" 
+        }
       ]
     }
   ]
