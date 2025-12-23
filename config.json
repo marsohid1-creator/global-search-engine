@@ -1,6 +1,6 @@
 {
   "app_title": "Global Auto Search",
-  "version": "3.0",
+  "version": "3.1",
   "theme_color": "#0b0c15",
   "countries": [
     {
@@ -17,12 +17,14 @@
           "url_pattern": "https://www.iaai.com/VehicleSearch/SearchDetails?Keyword={q}" 
         },
         { 
-          "name": "Manheim (Public)", 
-          "url_pattern": "https://www.manheim.com/search?q={q}" 
+          "name": "Manheim (Dealer)", 
+          "url_pattern": "https://www.manheim.com/members/searchResults/?query={q}",
+          "warning": "Account Required. You need to be logged in as a dealer to view results."
         },
         { 
           "name": "Autotrader", 
-          "url_pattern": "https://www.autotrader.com/cars-for-sale/all-cars?keywords={q}" 
+          "url_pattern": "https://www.autotrader.com/cars-for-sale/all-cars?zip=10001&keywords={q}",
+          "warning": "VPN Required. This site is only accessible from USA IP addresses."
         }
       ]
     },
@@ -89,7 +91,7 @@
       "sites": [
         { 
           "name": "MyAuto", 
-          "url_pattern": "https://www.myauto.ge/en/s/0/0/00/00/00/00/00/00/00/00/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0?Keyword={q}" 
+          "url_pattern": "https://www.myauto.ge/en/s/0/0/00/00/00/00/00/00/00/00/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0?Keyword={q}" 
         }
       ]
     }
