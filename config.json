@@ -51,7 +51,7 @@
       "sites": [
         { 
           "name": "Dubicars", 
-          "url_pattern": "https://www.dubicars.com/search?keywords={q}" 
+          "url_pattern": "https://www.dubicars.com/search?o=&did=&gen=&trg=&moc=&c=new-and-used&ul=AE&cr=AED&k={q}&mg=&yf=&yt=&set=bu&pf=&pt=&emif=&emit=&kf=&kt=&eo%5B%5D=can-be-exported&noi=30" 
         },
         { 
           "name": "Dubizzle", 
@@ -98,5 +98,6 @@
     }
   ]
 }
+
 
 
