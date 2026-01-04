@@ -36,11 +36,11 @@
       "sites": [
         { 
           "name": "Mobile.de", 
-          "url_pattern": "https://suchen.mobile.de/fahrzeuge/search.html?lang=en&isSearchRequest=true&vc=Car&n={q}" 
+          "url_pattern": "https://suchen.mobile.de/fahrzeuge/search.html?dam=false&isSearchRequest=true&ms=%3B%3B%3B{q}&ref=dsp&s=Car&vc=Car" 
         },
         { 
           "name": "AutoScout24", 
-          "url_pattern": "https://www.autoscout24.com/lst?q={q}&sort=standard&desc=0&atype=C" 
+          "url_pattern": "https://www.autoscout24.com/lst?atype=C&desc=0&mmmv=%7C%7C%7C{q}&powertype=kw&search_id=ud0i789vnc&sort=standard&source=detailsearch&ustate=N%2CU" 
         }
       ]
     },
@@ -66,11 +66,7 @@
       "sites": [
         { 
           "name": "Autowini (Export)", 
-          "url_pattern": "https://www.autowini.com/search/cars?keyword={q}" 
-        },
-        { 
-          "name": "Encar (Global)", 
-          "url_pattern": "http://global.encar.com/global/choose_your_car/vehicle_search.do?list_type=list&searchCondition={q}" 
+          "url_pattern": "https://www.autowini.com/search?keyword={q}" 
         }
       ]
     },
@@ -96,9 +92,10 @@
       "sites": [
         { 
           "name": "MyAuto", 
-          "url_pattern": "https://www.myauto.ge/en/s/?Keyword={q}" 
+          "url_pattern": "https://www.myauto.ge/en/s/for-sell-cars?vehicleType=0&bargainType=0&mansNModels=&currId=3&mileageType=1&page=1&query={q}&layoutId=1" 
         }
       ]
     }
   ]
 }
+
