@@ -1,6 +1,6 @@
 {
   "app_title": "Global Auto Search",
-  "version": "3.1",
+  "version": "4.0",
   "theme_color": "#0b0c15",
   "countries": [
     {
@@ -24,7 +24,8 @@
         { 
           "name": "Autotrader", 
           "url_pattern": "https://www.autotrader.com/cars-for-sale/all-cars?zip=10001&keywords={q}",
-          "warning": "VPN Required. This site is only accessible from USA IP addresses."
+          "warning": "VPN Required. This site is only accessible from USA IP addresses.",
+          "vpn_url": "https://nordvpn.com/" 
         }
       ]
     },
@@ -35,11 +36,11 @@
       "sites": [
         { 
           "name": "Mobile.de", 
-          "url_pattern": "https://suchen.mobile.de/fahrzeuge/search.html?dam=0&isSearchRequest=true&vc=Car&s={q}" 
+          "url_pattern": "https://suchen.mobile.de/fahrzeuge/search.html?lang=en&isSearchRequest=true&s={q}&vc=Car" 
         },
         { 
           "name": "AutoScout24", 
-          "url_pattern": "https://www.autoscout24.com/lst?atype=C&desc=0&sort=standard&ustate=N%2CU&custtype=P%2CD&powertype=kw&search_id=1&q={q}" 
+          "url_pattern": "https://www.autoscout24.com/lst?q={q}&sort=standard&desc=0&ustate=N%2CU&atype=C" 
         }
       ]
     },
@@ -64,8 +65,8 @@
       "flag_emoji": "🇰🇷",
       "sites": [
         { 
-          "name": "Encar", 
-          "url_pattern": "http://www.encar.com/dc/dc_carsearch.do?wtClick_kor=search_search_car&searchType=model&modelgroup=&mask=&mode=simple&range=&inav=&inav_s=&search=Y&keyword={q}" 
+          "name": "Encar (Translated)", 
+          "url_pattern": "https://translate.google.com/translate?sl=ko&tl=en&u=http://www.encar.com/dc/dc_carsearch.do?wtClick_kor=search_search_car&searchType=model&modelgroup=&mask=&mode=simple&range=&inav=&inav_s=&search=Y&keyword={q}" 
         }
       ]
     },
