@@ -1,6 +1,6 @@
 {
   "app_title": "Global Auto Search",
-  "version": "4.0",
+  "version": "5.0",
   "theme_color": "#0b0c15",
   "countries": [
     {
@@ -36,11 +36,11 @@
       "sites": [
         { 
           "name": "Mobile.de", 
-          "url_pattern": "https://suchen.mobile.de/fahrzeuge/search.html?lang=en&isSearchRequest=true&s={q}&vc=Car" 
+          "url_pattern": "https://suchen.mobile.de/fahrzeuge/search.html?lang=en&isSearchRequest=true&vc=Car&n={q}" 
         },
         { 
           "name": "AutoScout24", 
-          "url_pattern": "https://www.autoscout24.com/lst?q={q}&sort=standard&desc=0&ustate=N%2CU&atype=C" 
+          "url_pattern": "https://www.autoscout24.com/lst?q={q}&sort=standard&desc=0&atype=C" 
         }
       ]
     },
@@ -51,7 +51,7 @@
       "sites": [
         { 
           "name": "Dubicars", 
-          "url_pattern": "https://www.dubicars.com/search?q={q}" 
+          "url_pattern": "https://www.dubicars.com/search?keywords={q}" 
         },
         { 
           "name": "Dubizzle", 
@@ -65,8 +65,12 @@
       "flag_emoji": "🇰🇷",
       "sites": [
         { 
-          "name": "Encar (Translated)", 
-          "url_pattern": "https://translate.google.com/translate?sl=ko&tl=en&u=http://www.encar.com/dc/dc_carsearch.do?wtClick_kor=search_search_car&searchType=model&modelgroup=&mask=&mode=simple&range=&inav=&inav_s=&search=Y&keyword={q}" 
+          "name": "Autowini (Export)", 
+          "url_pattern": "https://www.autowini.com/search/cars?keyword={q}" 
+        },
+        { 
+          "name": "Encar (Global)", 
+          "url_pattern": "http://global.encar.com/global/choose_your_car/vehicle_search.do?list_type=list&searchCondition={q}" 
         }
       ]
     },
@@ -92,7 +96,7 @@
       "sites": [
         { 
           "name": "MyAuto", 
-          "url_pattern": "https://www.myauto.ge/en/s/0/0/00/00/00/00/00/00/00/00/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0?Keyword={q}" 
+          "url_pattern": "https://www.myauto.ge/en/s/?Keyword={q}" 
         }
       ]
     }
