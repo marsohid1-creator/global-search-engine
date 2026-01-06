@@ -1,6 +1,6 @@
 {
   "app_title": "Global Auto Search",
-  "version": "5.0",
+  "version": "6.0",
   "theme_color": "#0b0c15",
   "countries": [
     {
@@ -15,11 +15,6 @@
         { 
           "name": "IAAI", 
           "url_pattern": "https://www.iaai.com/VehicleSearch/SearchDetails?Keyword={q}" 
-        },
-        { 
-          "name": "Manheim (Dealer)", 
-          "url_pattern": "https://www.manheim.com/members/searchResults/?query={q}",
-          "warning": "Account Required. You need to be logged in as a dealer to view results."
         },
         { 
           "name": "Autotrader", 
@@ -71,6 +66,21 @@
       ]
     },
     {
+      "code": "lt",
+      "name": "Lithuania",
+      "flag_emoji": "🇱🇹",
+      "sites": [
+        { 
+          "name": "Autoplius", 
+          "url_pattern": "https://en.m.autoplius.lt/ads/used-cars?qt={q}" 
+        },
+        { 
+          "name": "Autogidas", 
+          "url_pattern": "https://autogidas.lt/en/skelbimai/automobiliai/?f_376={q}" 
+        }
+      ]
+    },
+    {
       "code": "pl",
       "name": "Poland",
       "flag_emoji": "🇵🇱",
@@ -98,6 +108,3 @@
     }
   ]
 }
-
-
-
