@@ -2,6 +2,8 @@
   "app_title": "Global Auto Search",
   "version": "6.0",
   "theme_color": "#0b0c15",
+  "vin_url": "https://www.carvertical.com/ua/landing/v3",
+  "vpn_url": "https://nordvpn.com",
   "countries": [
     {
       "code": "us",
@@ -108,3 +110,4 @@
     }
   ]
 }
+
