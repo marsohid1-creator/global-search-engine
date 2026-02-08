@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Auto Search - Find & Import Cars</title>
+    <meta name="description" content="The ultimate tool for searching used cars in USA, Europe, and Korea. Includes customs calculator and VIN check.">
+    
+    <!-- Tailwind CSS (для швидкого стилю) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Налаштування ваших кольорів -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0b0c15',
+                            orange: '#FF6B00',
+                            gray: '#F8F9FA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Анімація появи */
+        .fade-in { animation: fadeIn 1s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-brand-gray text-gray-800 font-sans">
+
+    <!-- HERO SECTION -->
+    <header class="bg-brand-dark text-white pt-20 pb-32 relative overflow-hidden">
+        <!-- Фоновий візерунок -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center fade-in">
+            <!-- Логотип (використовує файл з вашого репозиторію) -->
+            <div class="mx-auto w-24 h-24 bg-white/10 rounded-2xl p-2 mb-6 backdrop-blur-sm border border-white/20">
+                <img src="assets/logo.png" alt="Logo" class="w-full h-full object-cover rounded-xl shadow-lg" onerror="this.src='https://placehold.co/200x200/0b0c15/FFF?text=GAS'">
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+                Global Auto <span class="text-brand-orange">Search</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                Your gateway to world car markets. Search Copart, Mobile.de, IAAI, and more in one app. Calculate import costs instantly.
+            </p>
+            
+            <!-- Кнопка Google Play -->
+            <a href="https://play.google.com/store/apps/details?id=com.autosearch.app" target="_blank" class="inline-flex items-center gap-3 bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full transition transform hover:scale-105 shadow-xl hover:shadow-orange-500/20">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.36,13.08L18.81,13.96L15.46,10.59L18.81,7.23L20.36,8.11C20.93,8.44 21.28,9.05 21.28,9.71V11.48C21.28,12.14 20.93,12.75 20.36,13.08M16.81,6.07L14.54,8.34L6.05,2.66L16.81,6.07Z" /></svg>
+                <span>Download on Google Play</span>
+            </a>
+            <p class="mt-4 text-sm text-gray-500">Free • No Ads Required • Secure</p>
+        </div>
+    </header>
+
+    <!-- FEATURES -->
+    <section class="py-20 -mt-20 relative z-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center transform hover:-translate-y-2 transition duration-300">
+                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">🌎</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Global Aggregator</h3>
+                    <p class="text-gray-600">Direct access to top marketplaces in USA, Europe, Korea, and UAE. No more switching tabs.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center transform hover:-translate-y-2 transition duration-300">
+                    <div class="w-16 h-16 bg-brand-orange/10 text-brand-orange rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">🧮</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Import Calculator</h3>
+                    <p class="text-gray-600">Estimate customs clearance costs for Ukraine, Georgia, Nigeria, and Kazakhstan instantly.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center transform hover:-translate-y-2 transition duration-300">
+                    <div class="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">🛡️</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Safety Tools</h3>
+                    <p class="text-gray-600">Built-in VIN check integration and VPN warnings to keep your browsing secure and effective.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOTS PLACEHOLDER (Optional) -->
+    <section class="py-10 pb-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold mb-10 text-brand-dark">Simple & Powerful Interface</h2>
+            <div class="flex justify-center gap-4 overflow-x-auto pb-4">
+                <!-- Якщо у вас є скріншоти в папці assets, розкоментуйте це: -->
+                <!-- <img src="assets/screen1.png" class="h-96 rounded-2xl shadow-lg border-4 border-gray-800"> -->
+                <!-- <img src="assets/screen2.png" class="h-96 rounded-2xl shadow-lg border-4 border-gray-800"> -->
+                
+                <!-- Заглушки -->
+                <div class="h-96 w-48 bg-gray-200 rounded-2xl flex items-center justify-center text-gray-400 border-4 border-gray-800 shrink-0">Search</div>
+                <div class="h-96 w-48 bg-gray-200 rounded-2xl flex items-center justify-center text-gray-400 border-4 border-gray-800 shrink-0">Results</div>
+                <div class="h-96 w-48 bg-gray-200 rounded-2xl flex items-center justify-center text-gray-400 border-4 border-gray-800 shrink-0">Calculator</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-gray-400 py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <h4 class="text-white font-bold text-lg">Global Auto Search</h4>
+                <p class="text-sm mt-1">© 2025. All rights reserved.</p>
+            </div>
+            
+            <div class="flex gap-8 text-sm font-medium">
+                <a href="privacy_policy.html" class="hover:text-brand-orange transition">Privacy Policy</a>
+                <a href="mailto:marsohid.apps@gmail.com" class="hover:text-brand-orange transition">Support</a>
+                <a href="app-ads.txt" class="hover:text-brand-orange transition">AdMob Info</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
