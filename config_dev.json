@@ -1,0 +1,183 @@
+{
+  "app_title": "Global Auto Search",
+  "version": "7.2",
+  "theme_color": "#0b0c15",
+  "vin_url": "https://vinspy.com/",
+  "vpn_url": "https://nordvpn.com",
+  "countries": [
+    {
+      "code": "na",
+      "name": "North America",
+      "flag_emoji": "🌎",
+      "subtitle": "USA & Canada",
+      "sites": [
+        {
+          "name": "Copart",
+          "subtitle": "🇺🇸 USA • Salvage & Clean Title Auctions",
+          "url_pattern": "https://www.copart.com/lotSearchResults/?free=true&query={q}"
+        },
+        {
+          "name": "IAAI",
+          "subtitle": "🇺🇸 USA • Insurance Auto Auctions",
+          "url_pattern": "https://www.iaai.com/VehicleSearch/SearchDetails?Keyword={q}"
+        },
+        {
+          "name": "IAAI Canada",
+          "subtitle": "🇨🇦 Canada • Insurance Auto Auctions",
+          "url_pattern": "https://ca.iaai.com/Search/?keyword={q}"
+        }
+      ]
+    },
+    {
+      "code": "eu",
+      "name": "Europe (EU)",
+      "flag_emoji": "🇪🇺",
+      "subtitle": "Germany, Poland, Lithuania, Pan-EU",
+      "sites": [
+        {
+          "name": "Mobile.de",
+          "subtitle": "🇩🇪 Germany • Largest EU Marketplace",
+          "url_pattern": "https://m.mobile.de/fahrzeuge/search.html?isSearchRequest=true&lang=en&od=up&q={q}&ref=dsp&s=Car&sb=rel&vc=Car"
+        },
+        {
+          "name": "AutoScout24",
+          "subtitle": "🇪🇺 Pan-European • Used & New Cars",
+          "url_pattern": "https://www.autoscout24.com/lst/kw_{q}?cy=D%2CA%2CB%2CE%2CF%2CI%2CL%2CNL&damaged_listing=include&desc=0&sort=standard&ustate=N%2CU&atype=C"
+        },
+        {
+          "name": "eCarsTrade",
+          "subtitle": "🇪🇺 EU • Ex-Lease & Fleet Auctions",
+          "url_pattern": "https://ecarstrade.com/search?search={q}"
+        },
+        {
+          "name": "OTOMOTO",
+          "subtitle": "🇵🇱 Poland • Leading Auto Marketplace",
+          "url_pattern": "https://www.otomoto.pl/osobowe/q-{q}"
+        },
+        {
+          "name": "OLX Auto",
+          "subtitle": "🇵🇱 Poland • Private & Dealer Listings",
+          "url_pattern": "https://www.olx.pl/motoryzacja/samochody/q-{q}/"
+        },
+        {
+          "name": "Autoplius",
+          "subtitle": "🇱🇹 Lithuania • Baltic Auto Portal",
+          "url_pattern": "https://en.m.autoplius.lt/ads/used-cars?qt={q}"
+        },
+        {
+          "name": "Autogidas",
+          "subtitle": "🇱🇹 Lithuania • Used Cars Marketplace",
+          "url_pattern": "https://autogidas.lt/en/skelbimai/automobiliai/?f_376={q}"
+        }
+      ]
+    },
+    {
+      "code": "gb",
+      "name": "United Kingdom",
+      "flag_emoji": "🇬🇧",
+      "subtitle": "UK Auto Auctions",
+      "sites": [
+        {
+          "name": "IAAI UK",
+          "subtitle": "🇬🇧 UK • Vehicle Auctions",
+          "url_pattern": "https://auctions.iaai.co.uk/auction/items/?search={q}"
+        }
+      ]
+    },
+    {
+      "code": "jp",
+      "name": "Japan",
+      "flag_emoji": "🇯🇵",
+      "subtitle": "JDM Direct Global Exporters",
+      "sites": [
+        {
+          "name": "BE FORWARD",
+          "subtitle": "🇯🇵 Japan • Direct Global Export",
+          "url_pattern": "https://sp.beforward.jp/stocklist/keyword={q}/sortkey=a/shipping_method=1/"
+        },
+        {
+          "name": "TCV",
+          "subtitle": "🇯🇵 Japan • Tradecarview Marketplace",
+          "url_pattern": "https://www.tc-v.com/used_car/all/all/?fd={q}"
+        },
+        {
+          "name": "SBT",
+          "subtitle": "🇯🇵 Japan • Global Car Exporter",
+          "url_pattern": "https://www.sbtjapan.com/used-cars/search?q={q}"
+        },
+        {
+          "name": "Car From Japan",
+          "subtitle": "🇯🇵 Japan • Direct Used Car Export",
+          "url_pattern": "https://carfromjapan.com/cheap-used-cars-for-sale?keywords={q}"
+        }
+      ]
+    },
+    {
+      "code": "kr",
+      "name": "South Korea",
+      "flag_emoji": "🇰🇷",
+      "subtitle": "Korean Direct Auto Export",
+      "sites": [
+        {
+          "name": "Autowini (Export)",
+          "subtitle": "🇰🇷 South Korea • Direct Export Platform",
+          "url_pattern": "https://m.autowini.com/s/search-keyword?keyword={q}"
+        }
+      ]
+    },
+    {
+      "code": "cn",
+      "name": "China",
+      "flag_emoji": "🇨🇳",
+      "subtitle": "EVs & Used Cars Export",
+      "sites": [
+        {
+          "name": "Made-in-China Autos",
+          "subtitle": "🇨🇳 China • Auto & EV Export",
+          "url_pattern": "https://m.made-in-china.com/search/product?word={q}+Auto+Vehicle"
+        },
+        {
+          "name": "AUTOHOME",
+          "subtitle": "🇨🇳 China • Used Cars Portal",
+          "url_pattern": "https://global.autohome.com/en/used-cars?keywords={q}"
+        }
+      ]
+    },
+    {
+      "code": "ae",
+      "name": "UAE (Dubai)",
+      "flag_emoji": "🇦🇪",
+      "subtitle": "GCC Specs & Re-Export Hub",
+      "sites": [
+        {
+          "name": "Dubicars",
+          "subtitle": "🇦🇪 UAE • Export-Ready Vehicles",
+          "url_pattern": "https://www.dubicars.com/search?o=&did=&gen=&trg=&moc=&c=new-and-used&ul=AE&cr=AED&k={q}&mg=&yf=&yt=&set=bu&pf=&pt=&emif=&emit=&kf=&kt=&eo%5B%5D=can-be-exported&noi=30"
+        },
+        {
+          "name": "Dubizzle",
+          "subtitle": "🇦🇪 Dubai • Local & Export Classifieds",
+          "url_pattern": "https://dubai.dubizzle.com/motors/used-cars/?keywords={q}"
+        }
+      ]
+    },
+    {
+      "code": "af",
+      "name": "Africa",
+      "flag_emoji": "🌍",
+      "subtitle": "Regional African Marketplaces",
+      "sites": [
+        {
+          "name": "Jiji",
+          "subtitle": "🇳🇬 Nigeria • Automotive Classifieds",
+          "url_pattern": "https://jiji.ng/cars?query={q}"
+        },
+        {
+          "name": "Autochek",
+          "subtitle": "🌍 Africa • Inspected Used Cars",
+          "url_pattern": "https://autochek.africa/ng/cars-for-sale/{q}"
+        }
+      ]
+    }
+  ]
+}
