@@ -93,7 +93,12 @@
         {
           "name": "BE FORWARD",
           "subtitle": "🇯🇵 Japan • Direct Global Export",
-          "url_pattern": "https://sp.beforward.jp/stocklist/keyword={q}/sortkey=a/shipping_method=1/"
+          "url_pattern": "https://sp.beforward.jp/stocklist/keyword={q}/sortkey=a/shipping_method=1/?refer_bfs=3724964&utm_source=sns&utm_medium=social&utm_term=BFS_Share&utm_content=sharelink&utm_campaign=supporters_profilepage"
+        },
+        {
+          "name": "Car From Japan",
+          "subtitle": "🇯🇵 Japan • 🎁 $100 OFF First Order",
+          "url_pattern": "https://carfromjapan.com/cheap-used-cars-for-sale?keywords={q}&referralCode=CPWRCML"
         },
         {
           "name": "TCV",
@@ -104,11 +109,6 @@
           "name": "SBT",
           "subtitle": "🇯🇵 Japan • Global Car Exporter",
           "url_pattern": "https://www.sbtjapan.com/used-cars/search?q={q}"
-        },
-        {
-          "name": "Car From Japan",
-          "subtitle": "🇯🇵 Japan • Direct Used Car Export",
-          "url_pattern": "https://carfromjapan.com/cheap-used-cars-for-sale?keywords={q}"
         }
       ]
     },
